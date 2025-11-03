@@ -117,9 +117,9 @@ func TestGet(t *testing.T) {
 		t.Errorf("expected value at index 2 = 3, got %v", mid)
 	}
 
-	_, isAbsent := list.Get(100)
+	_, isPresent = list.Get(100)
 
-	if !isAbsent {
+	if isPresent {
 		t.Errorf("expected Get(100) to be absent")
 	}
 
@@ -149,9 +149,8 @@ func TestInsertAt(t *testing.T) {
 	if insertErr == nil {
 		t.Errorf("expected InsertAt(1000, 1) to return an error")
 	}
-
 	list.InsertAt(0, 0)
-	list.InsertAt(3, 3)
+	list.InsertAt(4, 4)
 
 	first := list.GetFirst().value
 	if first != 0 {

@@ -13,8 +13,8 @@ type linkedList[T any] struct {
 	Size int
 }
 
-func NewSingly[T any]() linkedList[T] {
-	return linkedList[T]{}
+func NewSingly[T any]() *linkedList[T] {
+	return &linkedList[T]{}
 }
 
 func (list linkedList[T]) String() string {
