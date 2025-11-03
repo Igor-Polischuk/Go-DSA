@@ -52,12 +52,12 @@ func TestAppend(t *testing.T) {
 	}
 
 	first := list.GetFirst()
-	if first == nil || first.value != 1 {
+	if first == nil || first.Value != 1 {
 		t.Errorf("expected first element to be 1, got %v", first)
 	}
 
 	last := list.GetLast()
-	if last == nil || last.value != 3 {
+	if last == nil || last.Value != 3 {
 		t.Errorf("expected last element to be 3, got %v", last)
 	}
 }
@@ -72,12 +72,12 @@ func TestPrepend(t *testing.T) {
 	}
 
 	first := list.GetFirst()
-	if first == nil || first.value != 10 {
+	if first == nil || first.Value != 10 {
 		t.Errorf("expected first element 10, got %v", first)
 	}
 
 	last := list.GetLast()
-	if last == nil || last.value != 20 {
+	if last == nil || last.Value != 20 {
 		t.Errorf("expected last element 20, got %v", last)
 	}
 }
@@ -103,17 +103,17 @@ func TestGet(t *testing.T) {
 	list.Prepend(1)
 
 	first = list.GetFirst()
-	if first == nil || first.value != 1 {
+	if first == nil || first.Value != 1 {
 		t.Errorf("expected first element to be 1, got %v", first)
 	}
 
 	last = list.GetLast()
-	if last == nil || last.value != 5 {
+	if last == nil || last.Value != 5 {
 		t.Errorf("expected last element to be 5, got %v", last)
 	}
 
 	mid, isPresent := list.Get(2)
-	if mid == nil || mid.value != 3 || !isPresent {
+	if mid == nil || mid.Value != 3 || !isPresent {
 		t.Errorf("expected value at index 2 = 3, got %v", mid)
 	}
 
@@ -140,7 +140,7 @@ func TestInsertAt(t *testing.T) {
 	}
 
 	mid, _ := list.Get(1)
-	if mid == nil || mid.value != 2 {
+	if mid == nil || mid.Value != 2 {
 		t.Errorf("expected value at index 1 = 2, got %v", mid)
 	}
 
@@ -152,14 +152,14 @@ func TestInsertAt(t *testing.T) {
 	list.InsertAt(0, 0)
 	list.InsertAt(4, 4)
 
-	first := list.GetFirst().value
+	first := list.GetFirst().Value
 	if first != 0 {
 		t.Errorf("expected first element to be 0, got %d", first)
 	}
 
 	last := list.GetLast()
-	if last.value != 4 {
-		t.Errorf("expected last element to be 4, got %d", last.value)
+	if last.Value != 4 {
+		t.Errorf("expected last element to be 4, got %d", last.Value)
 	}
 
 }
@@ -182,8 +182,8 @@ func TestPopFrontAndBack(t *testing.T) {
 	}
 
 	first := list.GetFirst()
-	if first.value != 20 {
-		t.Errorf("expected first 20, got %d", first.value)
+	if first.Value != 20 {
+		t.Errorf("expected first 20, got %d", first.Value)
 	}
 
 	deleted = list.PopBack()
@@ -197,7 +197,7 @@ func TestPopFrontAndBack(t *testing.T) {
 
 	t.Log(list)
 	last := list.GetLast()
-	if last.value != 40 {
-		t.Errorf("expected last 40, got %d", last.value)
+	if last.Value != 40 {
+		t.Errorf("expected last 40, got %d", last.Value)
 	}
 }
