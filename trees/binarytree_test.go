@@ -49,7 +49,7 @@ func TestTreeNode(t *testing.T) {
 	})
 }
 
-func TestBinaryTree(t *testing.T) {
+func TestBinaryTreeInsertion(t *testing.T) {
 
 	treeInsertionTestHelper := func(t *testing.T, tree *BinaryTree[int]) {
 		t.Helper()
@@ -108,6 +108,43 @@ func TestBinaryTree(t *testing.T) {
 
 			treeInsertionTestHelper(t, tree)
 		})
+	}
+
+}
+
+func TestBinaryTreeLookup(t *testing.T) {
+	tree := NewBinaryTree[int]()
+	valuesToInsert := []int{9, 4, 6, 20, 170, 15, 1}
+
+	for _, value := range valuesToInsert {
+		tree.InsertRecursive(value)
+	}
+
+	for _, value := range valuesToInsert {
+		resIterative := tree.LookUp(value)
+
+		if resIterative.Value != value {
+			t.Errorf("expected result to be %d, got %v when looking up %d iteratively", value, resIterative, value)
+		}
+
+		resRecursive := tree.LookUpRecursive(value)
+
+		if resRecursive.Value != value {
+			t.Errorf("expected result to be %d, got %v when looking up %d recursively", value, resRecursive, value)
+		}
+
+	}
+
+	res := tree.LookUp(44)
+
+	if res != nil {
+		t.Errorf("expected result to be nil when looking up 44 iteratively, got %v", res)
+	}
+
+	resRecursive := tree.LookUpRecursive(44)
+
+	if resRecursive != nil {
+		t.Errorf("expected result to be nil when looking up 44 recursively, got %v", resRecursive)
 	}
 
 }

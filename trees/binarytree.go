@@ -32,6 +32,23 @@ func (node *binaryTreeNode[T]) insertChild(value T) *binaryTreeNode[T] {
 	return node
 }
 
+func (node *binaryTreeNode[T]) lookUp(value T) *binaryTreeNode[T] {
+	if node == nil {
+		return node
+	}
+
+	if node.Value == value {
+		return node
+	}
+
+	if value < node.Value {
+		return node.Left.lookUp(value)
+	} else {
+		return node.Right.lookUp(value)
+	}
+
+}
+
 func (tree *BinaryTree[T]) InsertRecursive(value T) {
 	tree.Root = tree.Root.insertChild(value)
 }
@@ -61,4 +78,26 @@ func (tree *BinaryTree[T]) InsertIterative(value T) {
 			curr = curr.Right
 		}
 	}
+}
+
+func (tree *BinaryTree[T]) LookUp(value T) *binaryTreeNode[T] {
+	curr := tree.Root
+
+	for curr != nil {
+		if curr.Value == value {
+			return curr
+		}
+
+		if value < curr.Value {
+			curr = curr.Left
+		} else {
+			curr = curr.Right
+		}
+	}
+
+	return nil
+}
+
+func (tree *BinaryTree[T]) LookUpRecursive(value T) *binaryTreeNode[T] {
+	return tree.Root.lookUp(value)
 }
