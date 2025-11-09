@@ -148,3 +148,108 @@ func TestBinaryTreeLookup(t *testing.T) {
 	}
 
 }
+
+func TestBinaryTreeDeletion(t *testing.T) {
+	tree := NewBinaryTree[int]()
+	valuesToInsert := []int{9, 4, 6, 20, 170, 15, 1}
+
+	for _, value := range valuesToInsert {
+		tree.InsertRecursive(value)
+	}
+
+	//       9
+	// 	   /   \
+	//    4     20
+	//   / \    / \
+	//  1   6  15  170
+
+	res := tree.Remove(9)
+
+	if !res {
+		t.Errorf("expected result to be true when removing 9, got %v", res)
+	}
+
+	if tree.Root.Value != 15 {
+		t.Errorf("expected root value to be 15, got %d", tree.Root.Value)
+	}
+
+	if tree.Root.Right.Left != nil {
+		t.Errorf("expected right left to be nil, got %v", tree.Root.Right.Left)
+	}
+
+	//       15
+	// 	   /   \
+	//    4     20
+	//   / \      \
+	//  1   6     170
+
+	res = tree.Remove(20)
+
+	if !res {
+		t.Errorf("expected result to be true when removing 20, got %v", res)
+	}
+
+	if tree.Root.Right.Value != 170 {
+		t.Errorf("expected right value to be 170, got %d", tree.Root.Right.Value)
+	}
+
+	if tree.Root.Right.Left != nil && tree.Root.Right.Right != nil {
+		t.Errorf("expected right left and right right to be nil, got %v, %v", tree.Root.Right.Left, tree.Root.Right.Right)
+	}
+
+	//       15
+	// 	   /   \
+	//    4     170
+	//   / \
+	//  1   6
+
+	res = tree.Remove(1)
+
+	if !res {
+		t.Errorf("expected result to be true when removing 1, got %v", res)
+	}
+
+	if tree.Root.Left.Left != nil {
+		t.Errorf("expected left left to be nil, got %v", tree.Root.Left.Left)
+	}
+
+	//       15
+	// 	   /   \
+	//    4     170
+	//     \
+	//      6
+
+	res = tree.Remove(4)
+
+	if !res {
+		t.Errorf("expected result to be true when removing 4, got %v", res)
+	}
+
+	if tree.Root.Left.Value != 6 {
+		t.Errorf("expected left value to be 6, got %d", tree.Root.Left.Value)
+	}
+
+	tree.Remove(15)
+	tree.Remove(170)
+
+	if tree.Root.Value != 6 {
+		t.Errorf("expected root value to be 6, got %d", tree.Root.Value)
+	}
+
+	if tree.Root.Left != nil {
+		t.Errorf("expected left to be nil, got %v", tree.Root.Left)
+	}
+
+	res = tree.Remove(44)
+
+	if res {
+		t.Errorf("expected result to be false when removing 44, got %v", res)
+	}
+
+	tree.Remove(6)
+
+	if tree.Root != nil {
+		t.Errorf("expected root to be nil, got %v", tree.Root)
+	}
+
+}
